@@ -1,0 +1,48 @@
+<div class="report-container">
+<form [formGroup]="dailyReportForm" (ngSubmit)="onFormSubmit()">
+  <div class="form-group">
+    <label for="yesterdayStatus">Yesterday Status</label>
+        <input type="text" formControlName="yesterdayStatus" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.yesterdayStatus.errors }" autocomplete="off" placeholder="Enter What has been done yesterday"/>
+        <div *ngIf="submitted && fval.yesterdayStatus.errors" class="invalid-feedback">
+            <div *ngIf="fval.yesterdayStatus.errors.required">Yesterday Status is required</div>
+        </div>
+  </div>
+
+  <div class="form-group">
+    <label for="todayStatus">Today Status</label>
+    <input type="text" formControlName="todayStatus" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.todayStatus.errors }" autocomplete="off" placeholder="Enter What is to do Today"/>
+    <div *ngIf="submitted && fval.todayStatus.errors" class="invalid-feedback">
+        <div *ngIf="fval.todayStatus.errors.required">Today Status is required</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="tomorrowStatus">Tomorrow Status</label>
+    <input type="text" formControlName="tomorrowStatus" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.tomorrowStatus.errors }" autocomplete="off" placeholder="Enter What will be done Tomorrow"/>
+    <div *ngIf="submitted && fval.tomorrowStatus.errors" class="invalid-feedback">
+        <div *ngIf="fval.tomorrowStatus.errors.required">Tomorrow Status is required</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="date">Date</label>
+    <input type="text" formControlName="date" class="form-control" bsDatepicker [ngClass]="{ 'is-invalid': submitted && fval.date.errors }" [bsConfig]="bsConfig" autocomplete="off" placeholder="Enter Date here"/>
+    <div *ngIf="submitted && fval.date.errors" class="invalid-feedback">
+        <div *ngIf="fval.date.errors.required">Date is required</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="issues">Needs/ Issues</label>
+        <input type="text" formControlName="issues" class="form-control" autocomplete="off" placeholder="Issues"/>
+  </div>
+
+
+  <div class="form-group">
+    <button [disabled]="loading" class="btn btn-primary">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        Submit
+    </button>
+</div>
+</form>
+</div>
