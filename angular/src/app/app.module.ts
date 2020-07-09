@@ -17,6 +17,9 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
 import { DailyReportComponent } from './home/daily-report/daily-report.component';
+import { Constants } from './app.config';
+import { ReportGridComponent } from './home/report-grid/report-grid.component';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,8 @@ import { DailyReportComponent } from './home/daily-report/daily-report.component
     RegisterComponent,
     HomeComponent,
     ForgetpasswordComponent,
-    DailyReportComponent
+    DailyReportComponent,
+    ReportGridComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +39,10 @@ import { DailyReportComponent } from './home/daily-report/daily-report.component
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    NgxLoadingModule.forRoot({})
   ],
-  providers: [UserService,{ provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }], //
+  providers: [UserService,Constants,{ provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }], //
   bootstrap: [AppComponent]
 })
 export class AppModule { }

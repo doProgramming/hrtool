@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+
+.app_btn-success {
+    display: flex;
+    align-items: center;
+    min-width: 75px !important;
+    min-height: 33px !important;
+    padding: 4px 16px !important;
+    background-color: #008000 !important;
+    color: #ffffff !important;
+    border: none !important;
+    &:hover {
+        background-color: #008000db !important;
+        cursor: pointer;
+    }
+}
