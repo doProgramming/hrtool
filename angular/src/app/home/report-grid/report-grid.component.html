@@ -1,0 +1,48 @@
+<ngx-loading [show]="loading" [config]="{animationType: ngxLoadingAnimationTypes.chasingDots, primaryColour: primaryColour, secondaryColour: secondaryColour, backdropBorderRadius: '3px'}"
+></ngx-loading>
+
+<div class="row mt-4 mb-3">
+    <div class="col-md-12">
+      <b>Daily Reports</b>
+    </div>
+  </div>
+  <div class="row mt-1" *ngIf="!loading">
+    <div class="col-md-12">
+      <div class="table-responsive overflow-control">
+        <table class="table table-striped padding-reduced">
+          <tr>
+            <th>Date / Time</th>
+            <th>Consultant</th>
+            <th>Yesterday Status</th>
+            <th>Today Status</th>
+            <th>Tomorrow Status</th>
+            <th>Needs</th>
+            <th>Issues</th>
+            <th>Miscellaneous</th>
+            <th class="text-center">Actions</th>
+          </tr>
+          <tr *ngFor="let rpt of dailyReports;let i = index" [class]="selectedrowIndex == i ? 'selected-row' : ''">
+            <td>{{rpt?.createdDate |  date: 'dd/MM/yyyy hh:mm:ss'}}</td>
+            <td>{{rpt?.consultant}}</td>
+            <td>{{rpt?.yesterday}}</td>
+            <td>{{rpt?.today}}</td>
+            <td>{{rpt?.tomorrow}}</td>
+            <td>{{rpt?.needs}}</td>
+            <td>{{rpt?.issues}}</td>
+            <td>{{rpt?.miscellaneous}}</td>
+            <td>
+                <input  class="btn btn-success btn-sm" type="button" value="ReView">
+                <!-- <input  class="btn btn-primary btn-sm" type="button" value="Edit"> -->
+            </td>
+            </tr>
+            <tr *ngIf="dailyReports.length == 0">
+              <td colspan="7">
+                <div class="text-center">
+                  <span>No Reports Available</span>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>

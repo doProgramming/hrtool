@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '../../_services';
 import { ToastrService } from 'ngx-toastr';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker/bs-datepicker.config';
+import { DailyReportV2Service } from '../../_services/daily-report-v2.service';
 
 @Component({
   selector: 'app-daily-report',
@@ -15,23 +15,28 @@ export class DailyReportComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private userService: UserService,
+    private dailyReportService: DailyReportV2Service,
     private toastr: ToastrService
   ) { 
     this.bsConfig = { containerClass: 'theme-blue' };
+    this.currentUser = localStorage.getItem('currentUser')? JSON.parse(localStorage.getItem('currentUser')) : '';
   }
   dailyReportForm: FormGroup;
   loading = false;
   submitted = false;
+  public currentUser;
   bsConfig : Partial<BsDatepickerConfig>
 
   ngOnInit() {
     this.dailyReportForm = this.formBuilder.group({
-      yesterdayStatus: ['', Validators.required],
-      todayStatus: ['', Validators.required],
-      tomorrowStatus: ['', Validators.required],
-      date: ['', Validators.required],
-      issues: ['']
+      yesterday: ['', Validators.required],
+      today: ['', Validators.required],
+      tomorrow: ['', Validators.required],
+      day: ['', Validators.required],
+      needs: [''],
+      issues :[''],
+      miscellaneous: [''],
+      consultant: ['']
   });
   }
 
@@ -44,13 +49,20 @@ export class DailyReportComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.userService.register(this.dailyReportForm.value).subscribe(
-      (data)=>{
-        alert('User Registered successfully!!');
-        this.router.navigate(['/login']);
+    let dailyReport = this.dailyReportForm.value;
+    dailyReport.consultant = this.currentUser.firstName + "."+ this.currentUser.lastName;
+
+    this.dailyReportService.dailyReportSave(dailyReport).subscribe((res)=>{
+      if(res){
+
+        this.toastr.success('Daily Report Saved successfully.', 'Success', { timeOut: 1000 });
+        this.dailyReportForm.reset();
+        this.loading = false;
+      }
+      
      },
       (error)=>{
-        this.toastr.error(error.error.message, 'Error');
+        this.toastr.error(error.message, 'Error');
         this.loading = false;
       }
     )

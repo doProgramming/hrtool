@@ -1,0 +1,11 @@
+{
+ "/proxy/*": {
+    "target": "http://dailyreport-env.eba-ujj35ppr.us-east-2.elasticbeanstalk.com:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/proxy": ""
+    }
+  }
+}
